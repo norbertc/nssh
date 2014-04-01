@@ -1,0 +1,8 @@
+nssh and nssh-xargs
+
+Simple script to execute remote command via ssh on servers listed in $SERVERLIST variable
+Can also transfer files via scp on servers listed in $SERVERLIST variable
+
+Prerequisite:
+SSH trust on the target servers and users
+
