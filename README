@@ -6,3 +6,4 @@ Can also transfer files via scp on servers listed in $SERVERLIST variable
 Prerequisite:
 SSH trust on the target servers and users
 
+Tested on RHEL6 and SLES11.
