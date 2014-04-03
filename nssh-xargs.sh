@@ -26,24 +26,24 @@ usage() {
 [ ! -f $SERVERLIST ] && echo "$SERVERLIST not found" && exit
 [ -z "$2" ] && usage
 
-NPROC=$(nproc)
+NPROC=$( nproc --all )
 
 case "$1" in
 run)
 	if [ -z "$SSHUSER" ]; then
-		CMD="{ printf \"==> Running \'$2\' on TARGETHOST: \$(ssh TARGETHOST \"$2\" 2>&1)\n\"; }"
+		CMD="printf \"==> Running \'$2\' on TARGETHOST\t\$(ssh TARGETHOST \"$2\" 2>&1)\n\";"
 	else
-		CMD="{ printf \"==> Running \'$2\' on TARGETHOST: \$(ssh $SSHUSER@TARGETHOST \"$2\" 2>&1)\n\"; }"
+		CMD="printf \"==> Running \'$2\' on TARGETHOST\t\$(ssh $SSHUSER@TARGETHOST \"$2\" 2>&1)\n\";"
 	fi
-	xargs -a $SERVERLIST -P${THREADS} -ITARGETHOST -n1 /bin/sh -c "${CMD}"
+	xargs -a $SERVERLIST -P${NPROC} -ITARGETHOST -n1 /bin/sh -c "${CMD}"
 	;;
 cp)
 	[ ! -f "$2" ] && echo "error: file \"$2\" not found" && exit
 	[ -z "$3" ] && TARGETLOCATION='~' || TARGETLOCATION=$3
 	if [ -z "$SSHUSER" ]; then
-		CMD="{ printf \"==> Transferring \'$2\' to TARGETHOST:$TARGETLOCATION \$(scp -p \"$2\" TARGETHOST:$TARGETLOCATION 2>&1)\n\"; }"
+		CMD="printf \"==> Transferring \'$2\' to TARGETHOST:$TARGETLOCATION\t\$(scp -p \"$2\" TARGETHOST:$TARGETLOCATION 2>&1)\n\";"
 	else
-		CMD="{ printf \"==> Transferring \'$2\' to TARGETHOST:$TARGETLOCATION \$(scp -p \"$2\" $SSHUSER@TARGETHOST:$TARGETLOCATION 2>&1)\n\"; }"
+		CMD="printf \"==> Transferring \'$2\' to TARGETHOST:$TARGETLOCATION\t\$(scp -p \"$2\" $SSHUSER@TARGETHOST:$TARGETLOCATION 2>&1)\n\";"
 	fi
 	xargs -a $SERVERLIST -P${NPROC} -ITARGETHOST -n1 /bin/sh -c "${CMD}"
 	;;
