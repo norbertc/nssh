@@ -11,7 +11,7 @@ usage() {
 	echo -e "\nnormal usage:"
 	echo "$0 run \"remote-command\" (e.g. $0 run \"uname -a\")"
 	echo "$0 cp \"file-to-transfer\" [target-folder|file] (e.g. $0 cp /etc/hosts /etc)"
-	echo -e "\ncustom server list usage: (default is nssh-hostnames.txt in current directory)"
+	echo -e "\ncustom server list usage: (default is nssh-hostnames.txt in the current directory)"
 	echo "e.g. SERVERLIST=/home/norbert/hostlist.txt $0 run \"remote-command\""
 	echo "     SERVERLIST=/home/norbert/hostlist.txt $0 cp \"file-to-transfer\" [target-folder|file]"
 	echo -e "\nwhere SERVERLIST is path to a text file with a list of servers separated by new line.\n"
