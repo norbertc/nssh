@@ -30,7 +30,7 @@ case "$1" in
 run)
 	for i in $(cat $SERVERLIST); do
 		echo "==> Running \"$2\" on $i"
-		[ -z "$SSHUSER" ] && ssh $i "$2" || ssh ${SSHUSER}@${i} "$2"
+		if [ -z "$SSHUSER" ]; then ssh $i "$2"; else ssh ${SSHUSER}@${i} "$2"; fi
 	done
 	;;
 cp)
@@ -38,7 +38,7 @@ cp)
 	[ -z "$3" ] && TARGETLOCATION='~' || TARGETLOCATION=$3
 	for i in $(cat $SERVERLIST); do
 		echo "==> Transferring \"$2\" to ${i}:${TARGETLOCATION}"
-		[ -z "$SSHUSER" ] && scp -p "$2" ${i}:$TARGETLOCATION || scp -p "$2" ${SSHUSER}@${i}:$TARGETLOCATION
+		if [ -z "$SSHUSER" ]; then scp -p "$2" ${i}:$TARGETLOCATION; else scp -p "$2" ${SSHUSER}@${i}:$TARGETLOCATION; fi
 	done
 	;;
 *) usage;;
