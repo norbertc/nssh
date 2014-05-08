@@ -7,3 +7,17 @@ Prerequisite:
 SSH trust on the target servers and users
 
 Tested on RHEL6 and SLES11.
+
+normal usage:
+nssh-xargs.sh run "remote-command" (e.g. nssh-xargs.sh run "uname -a")
+nssh-xargs.sh cp "file-to-transfer" [target-folder|file] (e.g. nssh-xargs.sh cp /etc/hosts /etc)
+
+custom server list usage: (default is nssh-hostnames.txt in current directory)
+e.g. SERVERLIST=/home/norbert/hostlist.txt nssh-xargs.sh run "remote-command"
+     SERVERLIST=/home/norbert/hostlist.txt nssh-xargs.sh cp "file-to-transfer" [target-folder|file]
+
+where SERVERLIST is path to a text file with a list of servers separated by new line.
+
+custom user usage: (default is the user)
+e.g. SSHUSER=root nssh-xargs.sh run "remote-command"
+     SSHUSER=root nssh-xargs.sh cp "file-to-transfer" [target-folder|file]
